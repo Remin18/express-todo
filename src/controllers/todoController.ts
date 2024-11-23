@@ -24,7 +24,10 @@ export class TodoController {
       const todo = await this.todoService.createTodo(title, content)
       res.status(201).json({ todo })
     } catch (error) {
-      res.status(500).json({ error: 'Internal server error' })
+      res.status(500).json({
+        error: 'Internal server error',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
     }
   }
 
@@ -43,7 +46,10 @@ export class TodoController {
         res.status(404).json({ error: 'Todo not found' })
         return
       }
-      res.status(500).json({ error: 'Internal server error' })
+      res.status(500).json({
+        error: 'Internal server error',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
     }
   }
 }
